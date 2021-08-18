@@ -1,0 +1,64 @@
+import React, { Suspense } from "react";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import NotFoundPage from "./pages/NotFound.page";
+import { AUTH_TOKEN } from "./api/base";
+import AppContainerPageLazy from "./pages/AppContainer/AppContainer.lazy";
+import AuthPageLazy from "./pages/Auth/Auth.lazy";
+import { useEffect } from "react";
+import { me } from "./api/auth";
+import { useAppSelector } from "./store";
+import { meSelector } from "./selectors/auth.selectors";
+
+interface Props {}
+
+const App: React.FC<Props> = (props) => {
+  const user = useAppSelector(meSelector);
+
+  const token = localStorage.getItem(AUTH_TOKEN);
+
+  useEffect(() => {
+    if (!token) {
+      return;
+    }
+
+    me();
+  }, []);
+
+  if (!user && token) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <div>
+      <Suspense
+        fallback={
+          <div className="text-red-500">Loading App container Page</div>
+        }
+      >
+        <BrowserRouter>
+          <Switch>
+            <Route path="/" exact>
+              {user ? <Redirect to="/dashboard" /> : <Redirect to="/login" />}
+            </Route>
+            <Route path={["/login", "/signup"]} exact>
+              {user ? <Redirect to="/dashboard" /> : <AuthPageLazy />}
+            </Route>
+            <Route
+              path={[
+                "/dashboard",
+                "/recordings",
+                "/batch/:batchNumber/lecture/:lectureNumber",
+              ]}
+              exact
+            >
+              {user ? <AppContainerPageLazy /> : <Redirect to="/login" />}
+            </Route>
+            <Route component={NotFoundPage} />
+          </Switch>
+        </BrowserRouter>
+      </Suspense>
+    </div>
+  );
+};
+
+export default App;
