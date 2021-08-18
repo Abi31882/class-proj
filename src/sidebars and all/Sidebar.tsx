@@ -27,7 +27,6 @@ const Sidebar: FC<Props> = (props) => {
       >
         Logout
       </Button>
-      <img />
     </div>
   );
 };
