@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import Input from "../../components/input/Input";
 import { login } from "../../api/auth";
 import { authActions } from "../../actions/auth.actions";
+import { FaSpinner } from "react-icons/fa";
 
 interface Props {}
 
@@ -97,7 +98,11 @@ const Login: React.FC<Props> = (props) => {
               Keep me logged in
             </label>
           </div>
-          <div>{isSubmitting}</div>
+          <div>
+            {isSubmitting && (
+              <FaSpinner className="mt-5 animate-spin"></FaSpinner>
+            )}
+          </div>
           <Link to="/notfound" className="text-blue-600">
             Forgot Password?
           </Link>

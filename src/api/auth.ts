@@ -36,13 +36,7 @@ interface MeResponse {
 export const me = () => {
   const url = BASE_URL + "/me";
 
-  return axios
-    .get<MeResponse>(url)
-    .then((response) => response.data.data)
-    .then((u) => {
-      authActions.fetch(u);
-      return u;
-    });
+  return axios.get<MeResponse>(url).then((response) => response.data.data);
 };
 
 export const updateMe = () => {

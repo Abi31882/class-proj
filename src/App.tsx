@@ -5,9 +5,9 @@ import { AUTH_TOKEN } from "./api/base";
 import AppContainerPageLazy from "./pages/AppContainer/AppContainer.lazy";
 import AuthPageLazy from "./pages/Auth/Auth.lazy";
 import { useEffect } from "react";
-import { me } from "./api/auth";
 import { useAppSelector } from "./store";
 import { meSelector } from "./selectors/auth.selectors";
+import { me } from "./middlewares/auth.middleware";
 
 interface Props {}
 
@@ -22,7 +22,7 @@ const App: React.FC<Props> = (props) => {
     }
 
     me();
-  }, []);
+  }, []); // eslint-disable-line
 
   if (!user && token) {
     return <div>Loading...</div>;

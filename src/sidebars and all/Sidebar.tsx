@@ -1,4 +1,5 @@
 import { FC, memo } from "react";
+import { Link } from "react-router-dom";
 import { logout } from "../api/auth";
 import Button from "../components/Button/Button";
 import { meSelector } from "../selectors/auth.selectors";
@@ -17,6 +18,9 @@ const Sidebar: FC<Props> = (props) => {
         <span className="text-black">Name : </span>
         {user!.first_name}
       </div>
+      <Link className="text-blue-500" to="/recordings">
+        Recordings
+      </Link>
 
       <Button
         className="bottom-0"

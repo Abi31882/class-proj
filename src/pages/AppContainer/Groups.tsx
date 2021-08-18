@@ -1,35 +1,32 @@
 import React, { memo, useEffect } from "react";
 import { groupActions } from "../../actions/groups.actions";
-import { fetchGroups } from "../../api/groups";
+import { fetchGroups } from "../../middlewares/groups.middleware";
 import Input from "../../components/input/Input";
 import {
+  groupLoadingSelector,
   groupQuerySelector,
   groupsSelector,
 } from "../../selectors/groups.selectors";
 import { useAppSelector } from "../../store";
+import { FaSpinner } from "react-icons/fa";
 
 const Groups: React.FC = () => {
   const query = useAppSelector(groupQuerySelector);
-
+  const loading = useAppSelector(groupLoadingSelector);
   const groups = useAppSelector(groupsSelector);
-
-  useEffect(() => {
-    fetchGroups({ status: "all-groups", query }).then((groups) => {
-      groupActions.queryCompleted(query, groups);
-    });
-  }, [query]);
 
   return (
     <div>
-      <div>
+      <div className="flex justify-items-start">
         <Input
           type="text"
-          placeholder="write something"
+          placeholder="write something here"
           value={query}
           onChange={(e) => {
-            groupActions.query(e.target.value);
+            fetchGroups({ query: e.target.value, status: "all-groups" });
           }}
         ></Input>
+        {loading && <FaSpinner className="mt-5 animate-spin"></FaSpinner>}
       </div>
       <div>
         {groups &&
