@@ -8,14 +8,14 @@ import { addMany, EntityState, getIds } from "./entity.reducer";
 
 export interface GroupsState extends EntityState<Group> {
   query: string;
-  loadingQuery: { [query: string]: boolean };
+  loading: boolean;
   queryMap: { [query: string]: number[] };
 }
 
 const initialState = {
   byId: {},
   query: "",
-  loadingQuery: {},
+  loading: false,
   queryMap: {},
 };
 
@@ -30,10 +30,7 @@ export const groupReducer: Reducer<GroupsState> = (
       return {
         ...state,
         query: query,
-        loadingQuery: {
-          ...state.loadingQuery,
-          [query]: true,
-        },
+        loading: true,
       };
     case GROUPS_QUERY_COMPLETED:
       const groups = action.payload.groups as Group[];
@@ -48,10 +45,7 @@ export const groupReducer: Reducer<GroupsState> = (
           ...newState.queryMap,
           [action.payload.query]: groupIds,
         },
-        loadingQuery: {
-          ...newState.loadingQuery,
-          [action.payload.query]: false,
-        },
+        loading: false,
       };
 
     default:

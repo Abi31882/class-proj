@@ -3,7 +3,7 @@ import { groupActions } from "../../actions/groups.actions";
 import { fetchGroups } from "../../middlewares/groups.middleware";
 import Input from "../../components/input/Input";
 import {
-  groupLoadingSelector,
+  groupsLoadingSelector,
   groupQuerySelector,
   groupsSelector,
 } from "../../selectors/groups.selectors";
@@ -12,7 +12,7 @@ import { FaSpinner } from "react-icons/fa";
 
 const Groups: React.FC = () => {
   const query = useAppSelector(groupQuerySelector);
-  const loading = useAppSelector(groupLoadingSelector);
+  const loading = useAppSelector(groupsLoadingSelector);
   const groups = useAppSelector(groupsSelector);
 
   return (
