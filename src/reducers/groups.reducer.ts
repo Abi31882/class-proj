@@ -25,17 +25,19 @@ export const groupReducer: Reducer<GroupsState> = (
 ) => {
   switch (action.type) {
     case GROUPS_QUERY:
-      const { query, loading } = action.payload;
+      const query = action.payload;
+
       return {
         ...state,
         query: query,
         loadingQuery: {
           ...state.loadingQuery,
-          [query]: loading,
+          [query]: true,
         },
       };
     case GROUPS_QUERY_COMPLETED:
       const groups = action.payload.groups as Group[];
+
       const groupIds = getIds(groups);
 
       const newState = addMany(state, groups) as GroupsState;
@@ -43,7 +45,7 @@ export const groupReducer: Reducer<GroupsState> = (
       return {
         ...newState,
         queryMap: {
-          ...state.queryMap,
+          ...newState.queryMap,
           [action.payload.query]: groupIds,
         },
         loadingQuery: {

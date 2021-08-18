@@ -50,6 +50,11 @@ const Groups: React.FC = () => {
               </div>
             </div>
           ))}
+        {groups.length === 0 && (
+          <div className="text-3xl">
+            Oops! No data can be fount regarding your Query :(
+          </div>
+        )}
       </div>
     </div>
   );
