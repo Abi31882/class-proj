@@ -17,5 +17,6 @@ export const fetchGroups = (request: GroupRequest) => {
   fetchGroupsApi(request, token).then((groups) => {
     groupActions.queryCompleted(query, groups);
     canceler = undefined;
+    cancelAnimationFrame;
   });
 };
