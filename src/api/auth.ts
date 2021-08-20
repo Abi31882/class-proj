@@ -1,5 +1,4 @@
 import axios from "axios";
-import { authActions } from "../actions/auth.actions";
 import { User } from "../models/User";
 import { AUTH_TOKEN, BASE_URL } from "./base";
 

@@ -7,7 +7,8 @@ import AuthPageLazy from "./pages/Auth/Auth.lazy";
 import { useEffect } from "react";
 import { useAppSelector } from "./store";
 import { meSelector } from "./selectors/auth.selectors";
-import { me } from "./middlewares/auth.middleware";
+import { me } from "./api/auth";
+import { authActions } from "./actions/auth.actions";
 
 interface Props {}
 
@@ -21,7 +22,7 @@ const App: React.FC<Props> = (props) => {
       return;
     }
 
-    me();
+    me().then((u) => authActions.fetch(u));
   }, []); // eslint-disable-line
 
   if (!user && token) {

@@ -1,6 +1,5 @@
-import React, { memo, useEffect } from "react";
-import { groupActions } from "../../actions/groups.actions";
-import { fetchGroups } from "../../middlewares/groups.middleware";
+import React, { memo } from "react";
+import { QueryChangedAction } from "../../actions/groups.actions";
 import Input from "../../components/input/Input";
 import {
   groupsLoadingSelector,
@@ -9,11 +8,14 @@ import {
 } from "../../selectors/groups.selectors";
 import { useAppSelector } from "../../store";
 import { FaSpinner } from "react-icons/fa";
+import { useDispatch } from "react-redux";
 
 const Groups: React.FC = () => {
   const query = useAppSelector(groupQuerySelector);
   const loading = useAppSelector(groupsLoadingSelector);
   const groups = useAppSelector(groupsSelector);
+
+  const dispatch = useDispatch();
 
   return (
     <div>
@@ -23,7 +25,7 @@ const Groups: React.FC = () => {
           placeholder="write something here"
           value={query}
           onChange={(e) => {
-            fetchGroups({ query: e.target.value, status: "all-groups" });
+            dispatch(QueryChangedAction(e.target.value));
           }}
         ></Input>
         {loading && <FaSpinner className="mt-5 animate-spin"></FaSpinner>}
@@ -46,6 +48,7 @@ const Groups: React.FC = () => {
                 <img
                   className="w-20 h-20 rounded-full"
                   src={group.group_image_url}
+                  alt="the is me"
                 />
               </div>
             </div>
