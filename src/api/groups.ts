@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Group } from "../models/Group";
-import { BASE_URL } from "./base";
+import { BASE_URL, get } from "./base";
 
 export interface GroupRequest {
   limit?: number;
@@ -16,7 +16,5 @@ interface GroupResponse {
 export const fetchGroups = (data: GroupRequest) => {
   const url = BASE_URL + "/groups";
 
-  return axios
-    .get<GroupResponse>(url, { params: data })
-    .then((response) => response.data.data);
+  return get<GroupResponse>(url, { params: data });
 };
