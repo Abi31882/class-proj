@@ -13,6 +13,7 @@ import {
 } from "../actions/action.constants";
 import {
   fetchOneGroupComplete,
+  fetchOneGroupError,
   QueryCompletedAction,
 } from "../actions/groups.actions";
 import { fetchGroups as fetchGroupsApi, fetchOneGroup } from "../api/groups";
@@ -29,9 +30,13 @@ function* fetchGroups(action: AnyAction): Generator<any> {
 }
 
 function* fetchOne(action: AnyAction): Generator<any> {
-  const res: any = yield call(fetchOneGroup, action.payload);
-
-  yield put(fetchOneGroupComplete(res.data.data));
+  try {
+    const res: any = yield call(fetchOneGroup, action.payload);
+    yield put(fetchOneGroupComplete(res.data.data));
+  } catch (e) {
+    const error = e.response.data?.message || "some error occured";
+    yield put(fetchOneGroupError(action.payload, error));
+  }
 }
 
 export function* watchGroupQueryChange() {

@@ -9,7 +9,7 @@ import {
 import { useAppSelector } from "../../store";
 import { FaSpinner } from "react-icons/fa";
 import { useDispatch } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Groups: React.FC = () => {
   const query = useAppSelector(groupQuerySelector);
@@ -17,8 +17,6 @@ const Groups: React.FC = () => {
   const groups = useAppSelector(groupsSelector);
 
   const dispatch = useDispatch();
-
-  const history = useHistory();
 
   return (
     <div>

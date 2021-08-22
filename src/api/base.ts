@@ -24,9 +24,16 @@ axios.interceptors.response.use(undefined, (error) => {
   return Promise.reject(error);
 });
 
-export const get = <T>(url: string, config: AxiosRequestConfig) => {
-  console.log(CANCEL);
+axios.interceptors.response.use(undefined, (error) => {
+  console.error("error is", error);
+  if (error.response?.data?.code === 404) {
+    localStorage.removeItem(AUTH_TOKEN);
+    window.location.href = "/login";
+  }
+  return Promise.reject(error);
+});
 
+export const get = <T>(url: string, config: AxiosRequestConfig) => {
   const source = axios.CancelToken.source();
 
   const response = axios.get<T>(url, { ...config, cancelToken: source.token });

@@ -4,6 +4,7 @@ import {
   GROUPS_QUERY_COMPLETED,
   GROUP_FETCH_ONE,
   GROUP_FETCH_ONE_COMPLETE,
+  GROUP_FETCH_ONE_ERROR,
 } from "./action.constants";
 
 export const QueryChangedAction = (query: string) => ({
@@ -24,4 +25,9 @@ export const fetchOneGroup = (id: number) => ({
 export const fetchOneGroupComplete = (group: Group) => ({
   type: GROUP_FETCH_ONE_COMPLETE,
   payload: group,
+});
+
+export const fetchOneGroupError = (id: number, msg: string) => ({
+  type: GROUP_FETCH_ONE_ERROR,
+  payload: { id, msg },
 });
