@@ -2,6 +2,7 @@ import { FC, memo } from "react";
 import { Route, Switch } from "react-router-dom";
 import Sidebar from "../../sidebars and all/Sidebar";
 import DashboardPage from "./Dashboard.page";
+import GroupDetailPagePage from "./GroupDetailPage.page";
 import LecturePage from "./Lecture.page";
 import RecordingsPage from "./Recordings.page";
 
@@ -13,6 +14,9 @@ const AppContainer: FC<Props> = (props) => {
       <Sidebar />
       <Switch>
         <Route path="/dashboard" component={DashboardPage} />
+        <Route path="/groups/:groupId">
+          <GroupDetailPagePage></GroupDetailPagePage>
+        </Route>
         <Route path="/recordings" component={RecordingsPage} />
         <Route
           path="/batch/:batchNumber/lecture/:lectureNumber"

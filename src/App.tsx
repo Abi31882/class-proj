@@ -48,6 +48,7 @@ const App: React.FC<Props> = (props) => {
               path={[
                 "/dashboard",
                 "/recordings",
+                "/groups/:groupId",
                 "/batch/:batchNumber/lecture/:lectureNumber",
               ]}
               exact

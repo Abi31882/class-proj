@@ -9,6 +9,7 @@ import {
 import { useAppSelector } from "../../store";
 import { FaSpinner } from "react-icons/fa";
 import { useDispatch } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
 
 const Groups: React.FC = () => {
   const query = useAppSelector(groupQuerySelector);
@@ -16,6 +17,8 @@ const Groups: React.FC = () => {
   const groups = useAppSelector(groupsSelector);
 
   const dispatch = useDispatch();
+
+  const history = useHistory();
 
   return (
     <div>
@@ -37,8 +40,10 @@ const Groups: React.FC = () => {
               className="w-full mb-10 space-y-5 border-2 border-black"
               key={group.id}
             >
-              <div className="flex justify-between">
-                <div>{group.name.toUpperCase()}</div>
+              <div className="flex justify-between ">
+                <Link className="hover:text-red-700" to={"/groups/" + group.id}>
+                  <div>{group.name.toUpperCase()}</div>
+                </Link>
                 <div className="text-green-500">
                   <span className="text-black"> Description : </span>
                   {group.description}
@@ -48,12 +53,12 @@ const Groups: React.FC = () => {
                 <img
                   className="w-20 h-20 text-gray-500 rounded-full"
                   src={group.group_image_url}
-                  alt="no image to display"
+                  alt="nothing to display"
                 />
               </div>
             </div>
           ))}
-        {groups.length === 0 && (
+        {!loading && groups.length === 0 && (
           <div className="text-3xl">
             Oops! No data can be fount regarding your Query :(
           </div>

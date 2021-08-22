@@ -5,17 +5,12 @@ import Button from "../components/Button/Button";
 import { meSelector } from "../selectors/auth.selectors";
 import { useAppSelector } from "../store";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { SidebarToggled } from "../actions/ui.actions";
-import { useDispatch, useStore } from "react-redux";
-import { uiSelector } from "../selectors/uiSelectors";
 import { useState } from "react";
 
 interface Props {}
 
 const Sidebar: FC<Props> = (props) => {
-  const dispatch = useDispatch();
   const user = useAppSelector(meSelector);
-  const sidebarToggle = useAppSelector(uiSelector);
 
   const [sidebarOpened, setsidebarOpened] = useState(true);
 

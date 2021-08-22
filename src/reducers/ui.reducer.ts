@@ -6,8 +6,6 @@ const initialState = {
 };
 
 export const sideBarReducer = (state = initialState, action: AnyAction) => {
-  let password;
-
   switch (action.type) {
     case SIDEBAR_TOGGLE:
       return { ...state, isSidebarOpen: action.payload };
