@@ -19,7 +19,7 @@ const Groups: React.FC = () => {
 
   return (
     <div>
-      <div className="flex justify-items-start">
+      <div className="flex">
         <Input
           type="text"
           placeholder="write something here"
@@ -46,9 +46,9 @@ const Groups: React.FC = () => {
               </div>
               <div>
                 <img
-                  className="w-20 h-20 rounded-full"
+                  className="w-20 h-20 text-gray-500 rounded-full"
                   src={group.group_image_url}
-                  alt="the is me"
+                  alt="no image to display"
                 />
               </div>
             </div>
